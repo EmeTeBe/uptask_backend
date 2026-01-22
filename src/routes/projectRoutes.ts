@@ -77,10 +77,16 @@ router.post(
 
 router.get(
   "/:projectId/task",
-  param("projectId").isMongoId().withMessage("ID no válido"),
 
   validateProjectExists,
   TaskController.getProjectTask,
+);
+
+router.get(
+  "/:projectId/task/:taskId",
+
+  validateProjectExists,
+  TaskController.getTaskById,
 );
 
 export default router;

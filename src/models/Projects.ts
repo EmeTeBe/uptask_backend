@@ -8,7 +8,7 @@ export interface IProject extends Document {
   tasks: PopulatedDoc<ITask & Document>[];
 }
 
-const ProjectSchema: Schema = new Schema<IProject>(
+const ProjectSchema: Schema = new Schema(
   {
     projectName: {
       type: String,
