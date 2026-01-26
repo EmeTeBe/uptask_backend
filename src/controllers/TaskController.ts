@@ -63,7 +63,7 @@ export class TaskController {
     }
   };
 
-  static UpdateStatusTask = async  (req: Request, res: Response) => {
+  static UpdateStatusTask = async (req: Request, res: Response) => {
     try {
       const { status } = req.body;
       req.task.status = status;
