@@ -1,10 +1,11 @@
 import express, { type Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import morgan from "morgan";
 import { connectDB } from "./config/db";
+import authRoutes from "./routes/authRoutes";
 import projectRoutes from "./routes/projectRoutes";
 import { corsConfig } from "./config/cors";
-import morgan from "morgan";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // Middleware
+app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 
 export default app;
