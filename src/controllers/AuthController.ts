@@ -84,9 +84,11 @@ export class AuthController {
       }
       // Revisar password
       const isPasswordCorrect = await checkPassword(password, user.password);
-      console.log(isPasswordCorrect);
-
-      console.log(user);
+      if (!isPasswordCorrect) {
+        const error = new Error("Password incorrecto");
+        return res.status(401).json({ error: error.message });
+      }
+      res.send("Autenticado...");
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
     }
