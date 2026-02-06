@@ -17,8 +17,8 @@ const tokenSchema: Schema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: new Date(),
-    expireAfterSeconds: 600,
+    default: Date.now,
+    expire: 600,
   },
 });
 
