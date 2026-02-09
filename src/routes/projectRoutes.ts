@@ -6,6 +6,7 @@ import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/project";
 import { taskBelongsToProject, validateTaskExists } from "../middleware/task";
 import { authenticate } from "../middleware/auth";
+import { TeamMemberController } from "../controllers/TeamController";
 
 const router: Router = Router();
 
@@ -125,6 +126,15 @@ router.post(
 
   handleInputErrors,
   TaskController.UpdateStatusTask,
+);
+
+// Routes for teams
+router.post(
+  "/:projectId/team/find",
+  body("email").isEmail().toLowerCase().withMessage("E-mail no válido"),
+
+  handleInputErrors,
+  TeamMemberController.findMemberByEmail,
 );
 
 export default router;
