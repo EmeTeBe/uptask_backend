@@ -56,6 +56,12 @@ export class ProjectController {
         const error = new Error("Proyecto no encontrado");
         return res.status(404).json({ error: error.message });
       }
+
+      if (project.manager.toString() !== req.user._id.toString()) {
+        const error = new Error("Solo el admin puede actualizar un proyecto");
+        return res.status(404).json({ error: error.message });
+      }
+
       project.projectName = req.body.projectName;
       project.clientName = req.body.clientName;
       project.description = req.body.description;
@@ -76,6 +82,12 @@ export class ProjectController {
         const error = new Error("Proyecto no encontrado");
         return res.status(404).json({ error: error.message });
       }
+
+      if (project.manager.toString() !== req.user._id.toString()) {
+        const error = new Error("Solo el admin puede eliminar un proyecto");
+        return res.status(404).json({ error: error.message });
+      }
+
       await project.deleteOne();
       res.send("Proyecto Eliminado");
     } catch (error) {
