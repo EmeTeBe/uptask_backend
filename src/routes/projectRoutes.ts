@@ -4,7 +4,11 @@ import { ProjectController } from "../controllers/ProjectController";
 import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/project";
-import { taskBelongsToProject, validateTaskExists } from "../middleware/task";
+import {
+  hasAuthorization,
+  taskBelongsToProject,
+  validateTaskExists,
+} from "../middleware/task";
 import { authenticate } from "../middleware/auth";
 import { TeamMemberController } from "../controllers/TeamController";
 
@@ -69,6 +73,7 @@ router.delete(
 router.param("projectId", validateProjectExists);
 router.post(
   "/:projectId/task",
+  hasAuthorization,
 
   body("taskName")
     .notEmpty()
@@ -89,6 +94,7 @@ router.get(
 
 router.param("taskId", validateTaskExists);
 router.param("taskId", taskBelongsToProject);
+
 router.get(
   "/:projectId/task/:taskId",
   param("taskId").isMongoId().withMessage("ID no válido"),
@@ -99,6 +105,8 @@ router.get(
 
 router.put(
   "/:projectId/task/:taskId",
+  hasAuthorization,
+
   param("taskId").isMongoId().withMessage("ID no válido"),
   body("taskName")
     .notEmpty()
@@ -113,6 +121,8 @@ router.put(
 
 router.delete(
   "/:projectId/task/:taskId",
+  hasAuthorization,
+
   param("taskId").isMongoId().withMessage("ID no válido"),
 
   handleInputErrors,
