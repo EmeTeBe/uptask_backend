@@ -19,7 +19,7 @@ export class ProjectController {
   static getAllProjects = async (req: Request, res: Response) => {
     try {
       const projects = await Project.find({
-        manager: req.user._id,
+        $or: [{ manager: req.user._id }, { team: req.user._id }],
       });
       res.json(projects);
     } catch (error) {
