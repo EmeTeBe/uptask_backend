@@ -11,6 +11,7 @@ import {
 } from "../middleware/task";
 import { authenticate } from "../middleware/auth";
 import { TeamMemberController } from "../controllers/TeamController";
+import { NoteController } from "../controllers/NoteController";
 
 const router: Router = Router();
 
@@ -167,6 +168,17 @@ router.delete(
 
   handleInputErrors,
   TeamMemberController.removeMemberById,
+);
+
+// Routes for notes
+router.post(
+  "/:projectId/task/:taskId/notes",
+  body("content")
+    .notEmpty()
+    .withMessage("El contenido de la nota es obligatorio"),
+
+  handleInputErrors,
+  NoteController.createNote,
 );
 
 export default router;
