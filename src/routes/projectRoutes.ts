@@ -181,4 +181,18 @@ router.post(
   NoteController.createNote,
 );
 
+router.get(
+  "/:projectId/task/:taskId/notes",
+
+  NoteController.getNotesByTask,
+);
+
+router.delete(
+  "/:projectId/task/:taskId/notes/:noteId",
+  param("noteId").isMongoId().withMessage("Id no válido"),
+
+  handleInputErrors,
+  NoteController.deleteNoteBtId,
+);
+
 export default router;
